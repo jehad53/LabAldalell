@@ -1,0 +1,29 @@
+{
+    "@context": "https://schema.org",
+    "@type": "MedicalOrganization",
+    "name": "مختبرات الدليل الطبية",
+    "alternateName": "Al-Daleel Medical Laboratories",
+    "url": "https://al-daleel.com",
+    "logo": "https://al-daleel.com/logo.png",
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "0926337353",
+        "contactType": "customer service",
+        "areaServed": "LY",
+        "availableLanguage": [
+            "Arabic",
+            "English"
+        ]
+    },
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Al-Hawari",
+        "addressLocality": "Benghazi",
+        "addressCountry": "LY"
+    },
+    "sameAs": [
+        "https://www.facebook.com/aldaleel",
+        "https://www.twitter.com/aldaleel",
+        "https://www.instagram.com/aldaleel"
+    ]
+}
