@@ -103,9 +103,9 @@ const Home = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
-                            { title: 'الباقة الشاملة', price: '499 ر.س', features: ['صورة الدم كاملة', 'وظائف كبد وكلى', 'سكر وسكر تراكمي', 'فيتامين د'] },
-                            { title: 'باقة الفيتامينات', price: '299 ر.س', features: ['فيتامين د', 'فيتامين ب12', 'كالسيوم', 'حديد'] },
-                            { title: 'باقة الغدة الدرقية', price: '199 ر.س', features: ['TSH', 'T3', 'T4'] },
+                            { title: 'الباقة الشاملة', price: '499 د.ل', features: ['صورة الدم كاملة', 'وظائف كبد وكلى', 'سكر وسكر تراكمي', 'فيتامين د'] },
+                            { title: 'باقة الفيتامينات', price: '299 د.ل', features: ['فيتامين د', 'فيتامين ب12', 'كالسيوم', 'حديد'] },
+                            { title: 'باقة الغدة الدرقية', price: '199 د.ل', features: ['TSH', 'T3', 'T4'] },
                         ].map((test, index) => (
                             <div key={index} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all border border-gray-100">
                                 <div className="p-6">

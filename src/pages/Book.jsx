@@ -4,6 +4,7 @@ import { Calendar, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import Input from '../components/ui/Input';
 import Select from '../components/ui/Select';
 import Button from '../components/ui/Button';
+import { storage } from '../utils/storage';
 
 const Book = () => {
     const [formData, setFormData] = useState({
@@ -33,8 +34,8 @@ const Book = () => {
         if (!formData.name) newErrors.name = 'الاسم مطلوب';
         if (!formData.phone) {
             newErrors.phone = 'رقم الجوال مطلوب';
-        } else if (!/^05\d{8}$/.test(formData.phone)) {
-            newErrors.phone = 'رقم الجوال يجب أن يبدأ بـ 05 ويتكون من 10 أرقام';
+        } else if (!/^09\d{8}$/.test(formData.phone)) {
+            newErrors.phone = 'رقم الجوال يجب أن يبدأ بـ 09 ويتكون من 10 أرقام';
         }
         if (!formData.service) newErrors.service = 'الرجاء اختيار الخدمة';
         if (!formData.date) newErrors.date = 'التاريخ مطلوب';
@@ -44,16 +45,44 @@ const Book = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
             setIsSubmitting(true);
-            // Simulate API call
-            setTimeout(() => {
+
+            // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
+            const SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+
+            try {
+                // 1. Save to LocalStorage (for the new Dashboard)
+                storage.addBooking(formData);
+
+                // 2. Send to Google Sheets (if configured)
+                if (SCRIPT_URL === 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+                    console.log('Google Sheet URL not set. Simulating success.');
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                } else {
+                    // Send data to Google Sheets
+                    await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors', // Important for Google Sheets
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                }
+
                 setIsSubmitting(false);
                 setIsSubmitted(true);
                 window.scrollTo(0, 0);
-            }, 1500);
+
+            } catch (error) {
+                console.error('Error submitting form', error);
+                setIsSubmitting(false);
+                // Optionally show error message
+                alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.');
+            }
         }
     };
 
@@ -120,7 +149,7 @@ const Book = () => {
                                     value={formData.phone}
                                     onChange={handleChange}
                                     error={errors.phone}
-                                    placeholder="05xxxxxxxx"
+                                    placeholder="09xxxxxxxx"
                                     dir="ltr"
                                     className="text-right"
                                 />

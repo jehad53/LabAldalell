@@ -69,6 +69,43 @@ const Physicians = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Doctors List Section */}
+            <section className="py-20 bg-gray-50">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">أطباؤنا المتميزون</h2>
+                        <p className="text-gray-600">نخبة من الاستشاريين والأخصائيين لتقديم أفضل رعاية طبية لكم</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {[
+                            { name: 'د. محمد الورفلي', spec: 'استشاري أمراض الدم', phone: '091-1234567' },
+                            { name: 'د. فاطمة الزهراء', spec: 'أخصائية الكيمياء الحيوية', phone: '092-2345678' },
+                            { name: 'د. علي العبيدي', spec: 'استشاري الغدد الصماء', phone: '094-3456789' },
+                            { name: 'د. عائشة المسماري', spec: 'أخصائية الميكروبيولوجي', phone: '091-4567890' },
+                            { name: 'د. سالم الفرجاني', spec: 'استشاري المناعة', phone: '092-5678901' },
+                            { name: 'د. حنان الليبي', spec: 'أخصائية الوراثة الطبية', phone: '093-6789012' }
+                        ].map((doc, idx) => (
+                            <div key={idx} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-2xl">
+                                        {doc.name.charAt(3)}
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-lg text-gray-900">{doc.name}</h3>
+                                        <p className="text-sm text-gray-500">{doc.spec}</p>
+                                    </div>
+                                </div>
+                                <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-sm">
+                                    <span className="text-gray-500">للتواصل والحجز:</span>
+                                    <span className="font-bold text-gray-900" dir="ltr">{doc.phone}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
         </>
     );
 };
