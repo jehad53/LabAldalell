@@ -51,7 +51,7 @@ const Book = () => {
             setIsSubmitting(true);
 
             // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-            const SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6rW2Abe_nKBmiJe4ycjHVyY5vx-8WKKgRog7EBjVb2VH3P0Jk5pxWKJfwLVrQKfo1/exec';
 
             try {
                 // 1. Save to LocalStorage (for the new Dashboard)
