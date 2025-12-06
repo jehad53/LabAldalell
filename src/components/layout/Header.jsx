@@ -32,6 +32,7 @@ const Header = () => {
                     <div className="flex items-center gap-4">
                         <Link to="/results" className="hover:underline">بوابة النتائج</Link>
                         <Link to="/physicians" className="hover:underline">بوابة الأطباء</Link>
+                        <Link to="/admin/dashboard" className="hover:underline text-secondary-light font-bold">لوحة التحكم</Link>
                     </div>
                 </div>
             </div>

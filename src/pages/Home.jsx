@@ -138,9 +138,9 @@ const Home = () => {
                     <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">ماذا يقول عملاؤنا</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {[
-                            { name: 'أحمد محمد', comment: 'خدمة ممتازة وسريعة، والنتائج وصلتني على الجوال في نفس اليوم.' },
-                            { name: 'سارة العتيبي', comment: 'النظافة والاهتمام بالمريض فوق الوصف، شكراً لطاقم التمريض الرائع.' },
-                            { name: 'فهد الدوسري', comment: 'أفضل مختبر تعاملت معه، دقة في المواعيد واحترافية عالية.' },
+                            { name: 'أحمد القذافي', comment: 'خدمة ممتازة وسريعة، والنتائج وصلتني على الجوال في نفس اليوم.' },
+                            { name: 'سارة الترهوني', comment: 'النظافة والاهتمام بالمريض فوق الوصف، شكراً لطاقم التمريض الرائع.' },
+                            { name: 'فهد المقرحي', comment: 'أفضل مختبر تعاملت معه، دقة في المواعيد واحترافية عالية.' },
                         ].map((review, index) => (
                             <div key={index} className="bg-gray-50 p-6 rounded-xl border border-gray-100">
                                 <div className="flex text-yellow-400 mb-4">

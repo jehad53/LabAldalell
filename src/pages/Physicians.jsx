@@ -81,11 +81,11 @@ const Physicians = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {[
                             { name: 'د. محمد الورفلي', spec: 'استشاري أمراض الدم', phone: '091-1234567' },
-                            { name: 'د. فاطمة الزهراء', spec: 'أخصائية الكيمياء الحيوية', phone: '092-2345678' },
+                            { name: 'د. فاطمة البرغثي', spec: 'أخصائية الكيمياء الحيوية', phone: '092-2345678' },
                             { name: 'د. علي العبيدي', spec: 'استشاري الغدد الصماء', phone: '094-3456789' },
                             { name: 'د. عائشة المسماري', spec: 'أخصائية الميكروبيولوجي', phone: '091-4567890' },
                             { name: 'د. سالم الفرجاني', spec: 'استشاري المناعة', phone: '092-5678901' },
-                            { name: 'د. حنان الليبي', spec: 'أخصائية الوراثة الطبية', phone: '093-6789012' }
+                            { name: 'د. حنان الزوي', spec: 'أخصائية الوراثة الطبية', phone: '093-6789012' }
                         ].map((doc, idx) => (
                             <div key={idx} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                                 <div className="flex items-center gap-4 mb-4">
