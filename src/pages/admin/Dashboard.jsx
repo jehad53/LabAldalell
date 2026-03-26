@@ -1,27 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { storage } from '../../utils/storage';
-import { Calendar, CheckCircle, Clock, XCircle, Search, Trash2 } from 'lucide-react';
+import { api } from '../../utils/api';
+import { Calendar, CheckCircle, Clock, XCircle, Search, Trash2, RefreshCw } from 'lucide-react';
 import Button from '../../components/ui/Button';
 
 const Dashboard = () => {
     const [bookings, setBookings] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('all'); // all, pending, confirmed
     const [searchTerm, setSearchTerm] = useState('');
 
+    const loadData = async () => {
+        setLoading(true);
+        const data = await api.fetchBookings();
+        setBookings(data);
+        setLoading(false);
+    };
+
     useEffect(() => {
-        setBookings(storage.getBookings());
+        loadData();
     }, []);
 
+    // NOTE: Status updates in Google Sheets via API are complex (require ID lookup).
+    // For this version, we will only Read from Sheets.
+    // Local updates would require a more complex backend.
     const handleStatusUpdate = (id, newStatus) => {
-        const updated = storage.updateBookingStatus(id, newStatus);
-        setBookings(updated);
+        alert("عذراً، تعديل الحالة غير متاح حالياً عند الربط مع جوجل شيت (لأسباب تقنية). يرجى تعديل الحالة من ملف الإكسل مباشرة.");
     };
 
     const handleDelete = (id) => {
-        if (window.confirm('هل أنت متأكد من حذف هذا الحجز؟')) {
-            const updated = storage.deleteBooking(id);
-            setBookings(updated);
-        }
+        alert("عذراً، الحذف غير متاح. يرجى الحذف من ملف الإكسل مباشرة.");
     };
 
     const filteredBookings = bookings.filter(b => {
@@ -51,8 +58,17 @@ const Dashboard = () => {
             <div className="max-w-7xl mx-auto">
                 <header className="flex justify-between items-center mb-8">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900">لوحة التحكم</h1>
-                        <p className="text-gray-500">إدارة الحجوزات والمواعيد</p>
+                        <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+                            لوحة التحكم
+                            <button
+                                onClick={loadData}
+                                className={`p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-all ${loading ? 'animate-spin' : ''}`}
+                                title="تحديث البيانات"
+                            >
+                                <RefreshCw size={20} className="text-gray-600" />
+                            </button>
+                        </h1>
+                        <p className="text-gray-500">إدارة الحجوزات والمواعيد (مزامنة مع Google Sheets)</p>
                     </div>
                     <div className="flex gap-4">
                         {/* Stats Cards */}
@@ -129,7 +145,16 @@ const Dashboard = () => {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
-                                {filteredBookings.length === 0 ? (
+                                {loading ? (
+                                    <tr>
+                                        <td colSpan="6" className="p-12 text-center text-gray-500">
+                                            <div className="flex flex-col items-center gap-2">
+                                                <RefreshCw className="animate-spin text-primary" size={32} />
+                                                <span>جاري جلب البيانات من جوجل...</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ) : filteredBookings.length === 0 ? (
                                     <tr>
                                         <td colSpan="6" className="p-8 text-center text-gray-500">
                                             لا توجد حجوزات تطابق البحث

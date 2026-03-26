@@ -13,6 +13,7 @@ import Book from './pages/Book';
 import Results from './pages/Results';
 import Contact from './pages/Contact';
 import Physicians from './pages/Physicians';
+import PaymentMethods from './pages/PaymentMethods';
 
 // Admin Pages
 import Login from './pages/admin/Login';
@@ -56,6 +57,7 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/results" element={<Results />} />
                 <Route path="/physicians" element={<Physicians />} />
+                <Route path="/payment-methods" element={<PaymentMethods />} />
               </Routes>
             </Layout>
           } />

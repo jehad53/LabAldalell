@@ -31,6 +31,7 @@ const Footer = () => {
                             <li><Link to="/about" className="hover:text-white transition-colors">من نحن</Link></li>
                             <li><Link to="/services" className="hover:text-white transition-colors">خدماتنا</Link></li>
                             <li><Link to="/tests" className="hover:text-white transition-colors">دليل الفحوصات</Link></li>
+                            <li><Link to="/payment-methods" className="hover:text-white transition-colors">طرق الدفع</Link></li>
                             <li><Link to="/physicians" className="hover:text-white transition-colors">للأطباء</Link></li>
                             <li><Link to="/careers" className="hover:text-white transition-colors">التوظيف</Link></li>
                         </ul>

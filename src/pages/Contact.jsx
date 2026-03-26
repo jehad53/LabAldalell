@@ -1,116 +1,241 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
-import Input from '../components/ui/Input';
+import { motion } from 'framer-motion';
+import { MapPin, Phone, Mail, Clock, MessageCircle, Navigation, ChevronDown, Shield, CheckCircle } from 'lucide-react';
 import Button from '../components/ui/Button';
 
-const Contact = () => {
-    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+const faqs = [
+    { question: 'متى يمكنني استلام نتائج التحاليل؟', answer: 'تتوفر معظم النتائج في غضون 24 ساعة عبر بوابتنا الإلكترونية، بينما قد تستغرق بعض التحاليل الدقيقة وقتاً أطول لمعالجتها والتأكد من جودتها.' },
+    { question: 'هل يتوفر لديكم خدمة السحب المنزلي؟', answer: 'نعم، نوفر خدمة سحب العينات من المنزل لراحتكم. يمكنك الحجز المسبق عبر الاتصال الهاتفي أو تخصيص موعد عبر الواتساب لتصلك فرقنا المتخصصة.' },
+    { question: 'ما هي طرق الدفع المتاحة؟', answer: 'نقبل الدفع النقدي بالإضافة إلى خدمات الدفع الإلكتروني المتقدمة مثل موبي كاش، يسر باي، وإدفع لي لضمان تجربة دفع مرنة وآمنة.' },
+    { question: 'هل أحتاج لحجز موعد مسبق؟', answer: 'لا يشترط حجز موعد مسبق لمعظم التحاليل الروتينية، ولكن نفضل الحجز المسبق لضمان عدم انتظارك وتوفير وقتك في صالة الاستقبال.' }
+];
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert('شكراً لتواصلك معنا. سيتم الرد عليك قريباً.');
-        setFormData({ name: '', email: '', message: '' });
-    };
+const FaqItem = ({ faq, isOpen, onClick }) => (
+    <div className={`border rounded-2xl transition-all duration-300 ${isOpen ? 'border-primary/50 shadow-lg shadow-green-900/5 bg-white' : 'border-gray-100 bg-white hover:border-green-200 hover:shadow-md'}`}>
+        <button
+            onClick={onClick}
+            className="w-full flex justify-between items-center p-5 text-right focus:outline-none"
+        >
+            <span className={`font-bold text-lg ${isOpen ? 'text-primary' : 'text-gray-800'}`}>{faq.question}</span>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${isOpen ? 'bg-green-100 text-primary' : 'bg-gray-50 text-gray-400'}`}>
+                <ChevronDown className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} size={20} />
+            </div>
+        </button>
+        <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
+            <p className="p-5 pt-0 text-gray-600 leading-relaxed">
+                {faq.answer}
+            </p>
+        </div>
+    </div>
+);
+
+const ContactCard = ({ icon: Icon, title, value, subtext, buttonText, buttonIcon: ButtonIcon, buttonVariant, colorClass }) => (
+    <motion.div
+        whileHover={{ y: -5 }}
+        className="bg-white p-6 xl:p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 relative overflow-hidden group flex flex-col h-full"
+    >
+        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-gray-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 relative z-10 ${colorClass}`}>
+            <Icon size={28} />
+        </div>
+        <h3 className="text-xl font-bold text-gray-900 mb-2 relative z-10">{title}</h3>
+        <p className="text-gray-900 font-bold text-lg mb-1 relative z-10" dir="ltr">{value}</p>
+        <p className="text-gray-500 text-sm mb-6 relative z-10 min-h-[40px]">{subtext}</p>
+        <div className="mt-auto">
+            <Button variant={buttonVariant} className="w-full relative z-10">
+                <span className="flex items-center justify-center">
+                    {buttonText}
+                    <ButtonIcon size={18} className="mr-2" />
+                </span>
+            </Button>
+        </div>
+    </motion.div>
+);
+
+const Contact = () => {
+    const [openFaq, setOpenFaq] = useState(0);
 
     return (
         <>
             <Helmet>
                 <title>اتصل بنا | مختبرات الدليل الطبية</title>
-                <meta name="description" content="تواصل مع مختبرات الدليل الطبية عبر الهاتف أو البريد الإلكتروني أو زيارة أحد فروعنا." />
+                <meta name="description" content="تواصل مع مختبرات الدليل الطبية عبر الهاتف أو الواتساب أو زيارة أحد فروعنا. نحن هنا لخدمتكم." />
             </Helmet>
 
-            <section className="bg-primary text-white py-16">
-                <div className="container mx-auto px-4 text-center">
-                    <h1 className="text-4xl font-bold mb-4">اتصل بنا</h1>
-                    <p className="text-xl max-w-2xl mx-auto opacity-90">
-                        نحن هنا للإجابة على جميع استفساراتكم
-                    </p>
+            {/* Hero Section */}
+            <section className="relative pt-24 pb-20 bg-gradient-to-b from-green-50/80 to-white overflow-hidden">
+                {/* Decorative background Elements */}
+                <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 opacity-30 pointer-events-none">
+                    <div className="w-[500px] h-[500px] bg-primary/20 rounded-full blur-3xl"></div>
+                </div>
+
+                <div className="container mx-auto px-4 text-center relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5 }}
+                        className="inline-flex items-center justify-center p-3 bg-white shadow-sm border border-green-100 rounded-2xl text-primary mb-6"
+                    >
+                        <MessageCircle size={32} />
+                    </motion.div>
+
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6"
+                    >
+                        كيف يمكننا <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary to-green-600">مساعدتك اليوم؟</span>
+                    </motion.h1>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="text-xl max-w-2xl mx-auto text-gray-600 leading-relaxed"
+                    >
+                        نحن دائماً هنا للرد على استفساراتك وتلبية احتياجاتك الطبية. اختر من القائمة الطريقة الأنسب للتواصل معنا.
+                    </motion.p>
                 </div>
             </section>
 
-            <section className="py-20 bg-white">
+            <section className="pb-24 bg-white relative -mt-10 z-20">
                 <div className="container mx-auto px-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        {/* Contact Info */}
-                        <div className="space-y-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">معلومات التواصل</h2>
+                    {/* Quick Contact Cards Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20 max-w-7xl mx-auto">
+                        <ContactCard
+                            icon={Phone}
+                            title="اتصال هاتفي"
+                            value="092 633 7353"
+                            subtext="متاحون للرد على مكالماتكم في أوقات العمل"
+                            buttonText="اتصل الآن"
+                            buttonIcon={Phone}
+                            buttonVariant="primary"
+                            colorClass="bg-primary/10 text-primary"
+                        />
+                        <ContactCard
+                            icon={MessageCircle}
+                            title="واتساب"
+                            value="092 633 7353"
+                            subtext="استلم نتائجك واستفسر فوراً عبر الشات"
+                            buttonText="مراسلة واتساب"
+                            buttonIcon={MessageCircle}
+                            buttonVariant="outline"
+                            colorClass="bg-green-50 text-green-600"
+                        />
+                        <ContactCard
+                            icon={Mail}
+                            title="البريد الإلكتروني"
+                            value="info@al-daleel.com"
+                            subtext="مخصص للاستفسارات الرسمية وتعاقدات الشركات"
+                            buttonText="البريد الإلكتروني"
+                            buttonIcon={Mail}
+                            buttonVariant="outline"
+                            colorClass="bg-blue-50 text-blue-600"
+                        />
+                        <ContactCard
+                            icon={MapPin}
+                            title="الفرع الرئيسي"
+                            value="بنغازي - الهواري"
+                            subtext="نرحب بزيارتكم في مختبرنا لإجراء الفحوصات"
+                            buttonText="الحصول على الاتجاهات"
+                            buttonIcon={Navigation}
+                            buttonVariant="outline"
+                            colorClass="bg-purple-50 text-purple-600"
+                        />
+                    </div>
 
-                            <div className="flex items-start gap-4">
-                                <div className="bg-primary/10 p-3 rounded-lg text-primary">
-                                    <MapPin size={24} />
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+                        {/* Working Hours & Trust Info - 1 Column */}
+                        <div className="lg:col-span-1 space-y-8">
+                            {/* Working Hours Card */}
+                            <div className="bg-gray-900 rounded-3xl p-8 text-white relative overflow-hidden shadow-2xl shadow-gray-900/20 w-full">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl"></div>
+                                <div className="flex items-center gap-4 mb-8 relative z-10">
+                                    <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center">
+                                        <Clock size={24} className="text-primary" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold">ساعات العمل</h3>
                                 </div>
-                                <div>
-                                    <h3 className="font-bold text-gray-900 mb-1">المقر الرئيسي</h3>
-                                    <p className="text-gray-600">ليبيا، بنغازي، الهواري</p>
-                                </div>
+                                <ul className="space-y-4 relative z-10">
+                                    <li className="flex justify-between items-center pb-4 border-b border-white/10">
+                                        <span className="text-gray-300">السبت - الخميس</span>
+                                        <span className="font-bold">08:00 ص - 10:00 م</span>
+                                    </li>
+                                    <li className="flex justify-between items-center pb-4 border-b border-white/10">
+                                        <span className="text-gray-300">الجمعة</span>
+                                        <span className="bg-primary/20 text-primary px-3 py-1 rounded-full text-sm font-bold">مغلق (حالات طوارئ)</span>
+                                    </li>
+                                    <li className="flex justify-between items-center pt-2">
+                                        <span className="text-gray-300">سحب منزلي</span>
+                                        <span className="font-bold text-green-400">متاح يومياً بصيانة</span>
+                                    </li>
+                                </ul>
                             </div>
 
-                            <div className="flex items-start gap-4">
-                                <div className="bg-primary/10 p-3 rounded-lg text-primary">
-                                    <Phone size={24} />
+                            {/* Why Choose Us Minimal */}
+                            <div className="bg-green-50 rounded-3xl p-8 border border-green-100 hidden lg:block">
+                                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                    <Shield className="text-primary" size={24} />
+                                    لماذا الدليل؟
+                                </h3>
+                                <div className="space-y-5">
+                                    <div className="flex items-start gap-3">
+                                        <CheckCircle className="text-green-500 shrink-0 mt-0.5" size={18} />
+                                        <p className="text-sm font-medium text-gray-700 leading-relaxed">تطبيق أعلى معايير الجودة الدولية الموثوقة.</p>
+                                    </div>
+                                    <div className="flex items-start gap-3">
+                                        <CheckCircle className="text-green-500 shrink-0 mt-0.5" size={18} />
+                                        <p className="text-sm font-medium text-gray-700 leading-relaxed">تقنيات فحص آلية حديثة لضمان دقة غير مسبوقة.</p>
+                                    </div>
+                                    <div className="flex items-start gap-3">
+                                        <CheckCircle className="text-green-500 shrink-0 mt-0.5" size={18} />
+                                        <p className="text-sm font-medium text-gray-700 leading-relaxed">السرية التامة لبيانات ونتائج كل مريض.</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="font-bold text-gray-900 mb-1">رقم الهاتف</h3>
-                                    <p className="text-gray-600" dir="ltr">0926337353</p>
-                                    <p className="text-sm text-gray-400">متاح على مدار الساعة</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-4">
-                                <div className="bg-primary/10 p-3 rounded-lg text-primary">
-                                    <Mail size={24} />
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-gray-900 mb-1">البريد الإلكتروني</h3>
-                                    <p className="text-gray-600">info@al-daleel.com</p>
-                                </div>
-                            </div>
-
-                            <div className="h-64 bg-gray-200 rounded-xl overflow-hidden mt-8">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d107300.0!2d20.0667!3d32.1167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13830058e5f2425d%3A0x6a100529d3807204!2sBenghazi%2C%20Libya!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
-                                    width="100%"
-                                    height="100%"
-                                    style={{ border: 0 }}
-                                    allowFullScreen=""
-                                    loading="lazy"
-                                    referrerPolicy="no-referrer-when-downgrade"
-                                ></iframe>
                             </div>
                         </div>
 
-                        {/* Contact Form */}
-                        <div className="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">أرسل لنا رسالة</h2>
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <Input
-                                    label="الاسم"
-                                    value={formData.name}
-                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    required
-                                />
-                                <Input
-                                    label="البريد الإلكتروني"
-                                    type="email"
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    required
-                                />
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">الرسالة</label>
-                                    <textarea
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all h-32 resize-none"
-                                        value={formData.message}
-                                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        required
-                                    ></textarea>
+                        {/* Interactive Map & FAQ - 2 Columns */}
+                        <div className="lg:col-span-2 space-y-12">
+                            {/* Map Box */}
+                            <div className="bg-white p-2 rounded-3xl shadow-lg shadow-gray-200/50 border border-gray-100 h-fit">
+                                <div className="h-[350px] w-full bg-gray-100 rounded-[1.25rem] overflow-hidden relative group">
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d107300.0!2d20.0667!3d32.1167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13830058e5f2425d%3A0x6a100529d3807204!2sBenghazi%2C%20Libya!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+                                        width="100%"
+                                        height="100%"
+                                        style={{ border: 0 }}
+                                        allowFullScreen=""
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer-when-downgrade"
+                                        className="grayscale group-hover:grayscale-0 transition-all duration-700"
+                                    ></iframe>
+                                    {/* Overlay badge on map */}
+                                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg font-bold text-primary flex items-center gap-2 text-sm border border-white">
+                                        <MapPin size={16} />
+                                        <span>ليبيا، بنغازي، الهواري</span>
+                                    </div>
                                 </div>
-                                <Button type="submit" className="w-full py-3">
-                                    <Send size={18} className="ml-2" />
-                                    إرسال الرسالة
-                                </Button>
-                            </form>
+                            </div>
+
+                            {/* FAQ Section */}
+                            <div>
+                                <div className="flex items-center justify-between mb-8">
+                                    <h2 className="text-3xl font-bold text-gray-900 border-r-4 border-primary pr-4 rounded-sm">الأسئلة الشائعة</h2>
+                                </div>
+                                <div className="space-y-4">
+                                    {faqs.map((faq, index) => (
+                                        <FaqItem
+                                            key={index}
+                                            faq={faq}
+                                            isOpen={openFaq === index}
+                                            onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
