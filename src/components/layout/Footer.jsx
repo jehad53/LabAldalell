@@ -32,8 +32,9 @@ const Footer = () => {
                             <li><Link to="/services" className="hover:text-white transition-colors">خدماتنا</Link></li>
                             <li><Link to="/tests" className="hover:text-white transition-colors">دليل الفحوصات</Link></li>
                             <li><Link to="/payment-methods" className="hover:text-white transition-colors">طرق الدفع</Link></li>
-                            <li><Link to="/physicians" className="hover:text-white transition-colors">للأطباء</Link></li>
-                            <li><Link to="/careers" className="hover:text-white transition-colors">التوظيف</Link></li>
+                            <li><Link to="/contact" className="hover:text-white transition-colors">فروعنا</Link></li>
+                            {/* <li><Link to="/physicians" className="hover:text-white transition-colors">للأطباء</Link></li>
+                            <li><Link to="/careers" className="hover:text-white transition-colors">التوظيف</Link></li> */}
                         </ul>
                     </div>
 
@@ -54,8 +55,11 @@ const Footer = () => {
                         <h3 className="text-lg font-bold mb-4 text-secondary">تواصل معنا</h3>
                         <ul className="space-y-4 text-gray-400">
                             <li className="flex items-start gap-3">
-                                <MapPin className="mt-1 text-primary" size={18} />
-                                <span>ليبيا، بنغازي</span>
+                                <MapPin className="mt-1 text-primary shrink-0" size={18} />
+                                <div className="space-y-1">
+                                    <span className="block">بنغازي: قاريونس - شارع الوادي</span>
+                                    <span className="block text-sm text-gray-500">المرج: فرع المرج</span>
+                                </div>
                             </li>
                             <li className="flex items-center gap-3">
                                 <Phone className="text-primary" size={18} />

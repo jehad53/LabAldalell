@@ -136,14 +136,84 @@ const Contact = () => {
                         />
                         <ContactCard
                             icon={MapPin}
-                            title="الفرع الرئيسي"
-                            value="بنغازي - الهواري"
-                            subtext="نرحب بزيارتكم في مختبرنا لإجراء الفحوصات"
-                            buttonText="الحصول على الاتجاهات"
+                            title="فروعنا"
+                            value="بنغازي | المرج"
+                            subtext="شبكة فروعنا الأقرب إليك لتقديم أفضل رعاية"
+                            buttonText="استعراض الفروع"
                             buttonIcon={Navigation}
                             buttonVariant="outline"
                             colorClass="bg-purple-50 text-purple-600"
                         />
+                    </div>
+
+                    {/* Branches Section */}
+                    <div className="max-w-7xl mx-auto mb-20">
+                        <div className="flex items-center justify-between mb-8">
+                            <h2 className="text-3xl font-bold text-gray-900 border-r-4 border-primary pr-4 rounded-sm">فروعنا</h2>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {/* Main Branch: Garyounis */}
+                            <div className="bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-primary/20 relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 w-2 h-full bg-primary"></div>
+                                <div className="flex justify-between items-start mb-6">
+                                    <div>
+                                        <div className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold mb-3">الفرع الرئيسي</div>
+                                        <h3 className="text-2xl font-bold text-gray-900 mb-2">بنغازي - قاريونس</h3>
+                                        <p className="text-gray-600 flex items-center gap-2">
+                                            <MapPin size={18} className="text-primary shrink-0" />
+                                            شارع الوادي
+                                        </p>
+                                    </div>
+                                    <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
+                                        <MapPin size={24} />
+                                    </div>
+                                </div>
+                                <div className="h-48 rounded-2xl overflow-hidden mb-6 relative">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13458.7479701449!2d20.048!3d32.145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x138303f90b9b4444%3A0xeab50d8e27adca24!2sGaryounis%2C%20Benghazi%2C%20Libya!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" className="grayscale group-hover:grayscale-0 transition-all duration-500"></iframe>
+                                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm text-xs font-bold text-primary border border-white">
+                                        شارع الوادي
+                                    </div>
+                                </div>
+                                <a href="https://maps.google.com/?q=32.145,20.048" target="_blank" rel="noopener noreferrer" className="block">
+                                    <Button variant="outline" className="w-full text-primary border-primary hover:bg-primary hover:text-white transition-colors duration-300">
+                                        <span className="flex items-center justify-center gap-2">
+                                            الحصول على الاتجاهات
+                                            <Navigation size={18} />
+                                        </span>
+                                    </Button>
+                                </a>
+                            </div>
+
+                            {/* Branch: Al Marj */}
+                            <div className="bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-green-200 relative overflow-hidden group">
+                                <div className="flex justify-between items-start mb-6 mt-1">
+                                    <div>
+                                        <h3 className="text-2xl font-bold text-gray-900 mb-2">فرع المرج</h3>
+                                        <p className="text-gray-600 flex items-center gap-2">
+                                            <MapPin size={18} className="text-secondary shrink-0" />
+                                            مدينة المرج
+                                        </p>
+                                    </div>
+                                    <div className="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary shrink-0">
+                                        <MapPin size={24} />
+                                    </div>
+                                </div>
+                                <div className="h-48 rounded-2xl overflow-hidden mb-6 relative">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d106634.3312!2d20.88722!3d32.49389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1384e4e94b055555%3A0x1c3a6be7b11c0!2sAl%20Marj%2C%20Libya!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" className="grayscale group-hover:grayscale-0 transition-all duration-500"></iframe>
+                                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm text-xs font-bold text-secondary border border-white">
+                                        المرج
+                                    </div>
+                                </div>
+                                <a href="https://maps.google.com/?q=32.49389,20.88722" target="_blank" rel="noopener noreferrer" className="block">
+                                    <Button variant="outline" className="w-full text-secondary border-secondary hover:bg-secondary hover:text-white transition-colors duration-300">
+                                        <span className="flex items-center justify-center gap-2">
+                                            الحصول على الاتجاهات
+                                            <Navigation size={18} />
+                                        </span>
+                                    </Button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
@@ -199,25 +269,21 @@ const Contact = () => {
 
                         {/* Interactive Map & FAQ - 2 Columns */}
                         <div className="lg:col-span-2 space-y-12">
-                            {/* Map Box */}
-                            <div className="bg-white p-2 rounded-3xl shadow-lg shadow-gray-200/50 border border-gray-100 h-fit">
-                                <div className="h-[350px] w-full bg-gray-100 rounded-[1.25rem] overflow-hidden relative group">
-                                    <iframe
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d107300.0!2d20.0667!3d32.1167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13830058e5f2425d%3A0x6a100529d3807204!2sBenghazi%2C%20Libya!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
-                                        width="100%"
-                                        height="100%"
-                                        style={{ border: 0 }}
-                                        allowFullScreen=""
-                                        loading="lazy"
-                                        referrerPolicy="no-referrer-when-downgrade"
-                                        className="grayscale group-hover:grayscale-0 transition-all duration-700"
-                                    ></iframe>
-                                    {/* Overlay badge on map */}
-                                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg font-bold text-primary flex items-center gap-2 text-sm border border-white">
-                                        <MapPin size={16} />
-                                        <span>ليبيا، بنغازي، الهواري</span>
+                            {/* FAQ & Quick Contact Banner */}
+                            <div className="bg-primary/5 p-8 rounded-3xl border border-primary/10 mb-8 hidden lg:block">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center text-primary">
+                                        <MessageCircle size={24} />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-gray-900 text-lg">لم تجد إجابة لسؤالك؟</h3>
+                                        <p className="text-gray-600 text-sm">تواصل معنا الآن وسنقوم بالرد عليك في أقرب وقت.</p>
                                     </div>
                                 </div>
+                                <a href="https://wa.me/218926337353" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white text-green-600 px-4 py-2 rounded-xl font-bold shadow-sm hover:shadow-md transition-all text-sm border border-green-100">
+                                    <MessageCircle size={18} />
+                                    تواصل عبر واتساب
+                                </a>
                             </div>
 
                             {/* FAQ Section */}

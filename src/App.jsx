@@ -12,7 +12,7 @@ import Tests from './pages/Tests';
 import Book from './pages/Book';
 import Results from './pages/Results';
 import Contact from './pages/Contact';
-import Physicians from './pages/Physicians';
+// import Physicians from './pages/Physicians'; // Temporarily disabled
 import PaymentMethods from './pages/PaymentMethods';
 
 // Admin Pages
@@ -56,7 +56,7 @@ function App() {
                 <Route path="/book" element={<Book />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/results" element={<Results />} />
-                <Route path="/physicians" element={<Physicians />} />
+                {/* <Route path="/physicians" element={<Physicians />} /> */}
                 <Route path="/payment-methods" element={<PaymentMethods />} />
               </Routes>
             </Layout>

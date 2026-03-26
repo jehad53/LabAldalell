@@ -45,7 +45,7 @@ const Header = () => {
                         <div className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors cursor-default">
                             <MapPin size={16} className="text-secondary-light" />
                             <span className="font-medium">
-                                الدليل الطبي، الشارع الرئيسي
+                                فروعنا: بنغازي (قاريونس) | المرج
                             </span>
                         </div>
                     </div>
@@ -151,7 +151,7 @@ const Header = () => {
                         </Link>
                         <div className="flex flex-col gap-2 pt-2 border-t text-sm text-gray-600">
                             <Link to="/results" onClick={() => setIsMenuOpen(false)}>بوابة النتائج</Link>
-                            <Link to="/physicians" onClick={() => setIsMenuOpen(false)}>بوابة الأطباء</Link>
+                            {/* <Link to="/physicians" onClick={() => setIsMenuOpen(false)}>بوابة الأطباء</Link> */}
                         </div>
                     </div>
                 </div>
